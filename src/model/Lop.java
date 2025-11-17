@@ -1,12 +1,12 @@
 package model;
 
-public class lop {
+public class Lop {
     private int maLop;     // PRIMARY KEY
     private String tenLop;
 
-    public lop() {}
+    public Lop() {}
 
-    public lop(int maLop, String tenLop) {
+    public Lop(int maLop, String tenLop) {
         this.maLop = maLop;
         this.tenLop = tenLop;
     }
