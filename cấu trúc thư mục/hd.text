@@ -1,0 +1,17 @@
+src/
+ ├── model/
+ │     ├── HocSinh.java
+ │     ├── Lop.java
+ │     └── Diem.java
+ ├── dao/
+ │     ├── HocSinhDAO.java
+ │     ├── LopDAO.java
+ │     └── DiemDAO.java
+ ├── service/
+ │     ├── HocSinhService.java
+ │     ├── LopService.java
+ │     └── DiemService.java
+ ├── util/
+ │     └── DBConnection.java
+ └── main/
+       └── App.java   (menu chính)

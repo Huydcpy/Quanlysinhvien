@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class JDBCUtil {
     public static Connection getConnection() throws SQLException {
         // Thông tin kết nối
-        String url = "jdbc:mysql://localhost:3306/quanlysinhvien";
+        String url = "jdbc:mysql://localhost:3306/quanlyhocsinh";
         String user = "root"; // tài khoản MySQL
         String password = "Huyngu2006@"; // đổi thành mật khẩu thật
 

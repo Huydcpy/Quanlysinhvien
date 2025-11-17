@@ -2,34 +2,34 @@ package model;
 
 import java.sql.Date;
 
-public class SinhVien {
-    private int maSV;
+public class HocSinh {
+    private int maHS;        // PRIMARY KEY
     private String hoTen;
     private String gioiTinh;
-    private Date ngaySinh;
-    private String lop;
-    private int maLop;
-    private float diemTB;
+    private Date ngaySinh;   // kiểu DATE trong DB
+    private String diaChi;
+    private int maLop;       // FOREIGN KEY → Lop.maLop
+    private float diemTB;    // có trong DB
 
-    public SinhVien() {}
+    public HocSinh() {}
 
-    public SinhVien(int maSV, String hoTen, String gioiTinh, 
-                    Date ngaySinh, String lop, int maLop, float diemTB) {
-        this.maSV = maSV;
+    public HocSinh(int maHS, String hoTen, String gioiTinh, Date ngaySinh, 
+                   String diaChi, int maLop, float diemTB) {
+        this.maHS = maHS;
         this.hoTen = hoTen;
         this.gioiTinh = gioiTinh;
         this.ngaySinh = ngaySinh;
-        this.lop = lop;
+        this.diaChi = diaChi;
         this.maLop = maLop;
         this.diemTB = diemTB;
     }
 
-    public int getMaSV() {
-        return maSV;
+    public int getMaHS() {
+        return maHS;
     }
 
-    public void setMaSV(int maSV) {
-        this.maSV = maSV;
+    public void setMaHS(int maHS) {
+        this.maHS = maHS;
     }
 
     public String getHoTen() {
@@ -56,12 +56,12 @@ public class SinhVien {
         this.ngaySinh = ngaySinh;
     }
 
-    public String getLop() {
-        return lop;
+    public String getDiaChi() {
+        return diaChi;
     }
 
-    public void setLop(String lop) {
-        this.lop = lop;
+    public void setDiaChi(String diaChi) {
+        this.diaChi = diaChi;
     }
 
     public int getMaLop() {
@@ -78,18 +78,5 @@ public class SinhVien {
 
     public void setDiemTB(float diemTB) {
         this.diemTB = diemTB;
-    }
-
-    @Override
-    public String toString() {
-        return "SinhVien{" +
-                "maSV=" + maSV +
-                ", hoTen='" + hoTen + '\'' +
-                ", gioiTinh='" + gioiTinh + '\'' +
-                ", ngaySinh=" + ngaySinh +
-                ", lop='" + lop + '\'' +
-                ", maLop=" + maLop +
-                ", diemTB=" + diemTB +
-                '}';
     }
 }
