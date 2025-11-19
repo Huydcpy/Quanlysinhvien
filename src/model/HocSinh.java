@@ -1,20 +1,20 @@
 package model;
-
+import java.util.Date;
 public class HocSinh {
     private int maHS;
     private String hoTen;
-    private String ngaySinh;
+    private Date ngaySinh;
     private int maLop;
-    private String diachi;
+    private String diaChi;
     private String gioiTinh;
-    private int sdtOfBoMe;
+    private String sdtOfBoMe;
     private String email;
-    public HocSinh(int maHS, String hoTen, String ngaySinh, int maLop, String diachi, String gioiTinh, int sdtOfBoMe, String email) {
+    public HocSinh(int maHS, String hoTen, Date ngaySinh, int maLop, String diaChi, String gioiTinh, String sdtOfBoMe, String email) {
         this.maHS = maHS;
         this.hoTen = hoTen;
         this.ngaySinh = ngaySinh;
         this.maLop = maLop;
-        this.diachi = diachi;
+        this.diaChi = diaChi;
         this.gioiTinh = gioiTinh;
         this.sdtOfBoMe = sdtOfBoMe;
         this.email = email;
@@ -31,10 +31,10 @@ public class HocSinh {
     public void setHoTen(String hoTen) {
         this.hoTen = hoTen;
     }
-    public String getNgaySinh() {
+    public Date getNgaySinh() {
         return ngaySinh;
     }
-    public void setNgaySinh(String ngaySinh) {
+    public void setNgaySinh(Date ngaySinh) {
         this.ngaySinh = ngaySinh;
     }
     public int getMaLop() {
@@ -44,10 +44,10 @@ public class HocSinh {
         this.maLop = maLop;
     }
     public String getDiachi() {
-        return diachi;
+        return diaChi;
     }
     public void setDiachi(String diachi) {
-        this.diachi = diachi;
+        this.diaChi = diachi;
     }
     public String getGioiTinh() {
         return gioiTinh;
@@ -56,10 +56,10 @@ public class HocSinh {
     public void setGioiTinh(String gioiTinh) {
         this.gioiTinh = gioiTinh;
     }
-    public int getSdtOfBoMe() {
+    public String getSdtOfBoMe() {
         return sdtOfBoMe;
     }
-    public void setSdtOfBoMe(int sdtOfBoMe) {
+    public void setSdtOfBoMe(String sdtOfBoMe) {
         this.sdtOfBoMe = sdtOfBoMe;
     }
     public String getEmail() {
@@ -68,6 +68,6 @@ public class HocSinh {
     public void setEmail(String email) {
         this.email = email;
     }
-    
+
 
 }

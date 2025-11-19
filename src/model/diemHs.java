@@ -1,6 +1,6 @@
 package model;
 
-public class diemHs {
+public class DiemHs {
     private int maHS;
     private int maMon;
     private float diemToan;
@@ -11,7 +11,7 @@ public class diemHs {
     private float diemTinHoc;
     private float diemTheDuc;
     private float diemKhoaHoc;
-    public diemHs(int maHS, int maMon, float diemToan, float diemNguVan, float diemNgoaiNgu, float diemGDCD,
+    public DiemHs(int maHS, int maMon, float diemToan, float diemNguVan, float diemNgoaiNgu, float diemGDCD,
             float diemLichSu, float diemTinHoc, float diemTheDuc, float diemKhoaHoc) {
         this.maHS = maHS;
         this.maMon = maMon;
