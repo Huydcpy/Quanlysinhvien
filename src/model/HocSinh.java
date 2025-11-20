@@ -1,5 +1,5 @@
 package model;
-import java.util.Date;
+import java.sql.Date;
 public class HocSinh {
     private int maHS;
     private String hoTen;

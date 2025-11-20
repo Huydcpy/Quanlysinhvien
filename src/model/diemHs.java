@@ -11,6 +11,8 @@ public class DiemHs {
     private float diemTinHoc;
     private float diemTheDuc;
     private float diemKhoaHoc;
+    public DiemHs(){
+    }
     public DiemHs(int maHS, int maMon, float diemToan, float diemNguVan, float diemNgoaiNgu, float diemGDCD,
             float diemLichSu, float diemTinHoc, float diemTheDuc, float diemKhoaHoc) {
         this.maHS = maHS;

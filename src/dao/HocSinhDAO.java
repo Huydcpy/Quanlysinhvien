@@ -4,20 +4,20 @@ import util.DBConnection;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Date;
+import java.sql.Date;
 
 public class HocSinhDAO {
     // Thêm học Hocsinh;
     public boolean addHocSinh(HocSinh hs){
-        String sql = "ISERT INTO hocSinh(hoTen, ngaySinh, diaChi, maLop) values(?, ?, ?, ?)";
+        String sql = "INSERT INTO hocSinh(hoTen, ngaySinh, maLop, diaChi, gioiTinh, sdtOfBoMe, email) VALUES(?, ?, ?, ?, ?, ?, ?)";
         try(Connection conn = DBConnection.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql)){
 
-                ps.setString(1,hs.getHoTen());
-                ps.setString(2,hs.getGioiTinh());
-                ps.setDate(3, hs.getNgaySinh());
-                ps.setInt(4, hs.getMaLop());
-                ps.setString(5,hs.getDiachi());
+                ps.setString(1, hs.getHoTen());
+                ps.setDate(2, hs.getNgaySinh());
+                ps.setInt(3, hs.getMaLop());
+                ps.setString(4, hs.getDiachi());
+                ps.setString(5, hs.getGioiTinh());
                 ps.setString(6, hs.getSdtOfBoMe());
                 ps.setString(7, hs.getEmail());
                 return ps.executeUpdate() > 0;
@@ -58,11 +58,11 @@ public class HocSinhDAO {
             try(Connection conn = DBConnection.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)){
 
-                    ps.setString(1,hs.getHoTen());
-                    ps.setString(2,hs.getGioiTinh());
-                    ps.setDate(3, hs.getNgaySinh());
-                    ps.setInt(4, hs.getMaLop());
-                    ps.setString(5,hs.getDiachi());
+                    ps.setString(1, hs.getHoTen());
+                    ps.setDate(2, hs.getNgaySinh());
+                    ps.setInt(3, hs.getMaLop());
+                    ps.setString(4, hs.getDiachi());
+                    ps.setString(5, hs.getGioiTinh());
                     ps.setString(6, hs.getSdtOfBoMe());
                     ps.setString(7, hs.getEmail());
                     ps.setInt(8, hs.getMaHS());
