@@ -2,7 +2,6 @@ package model;
 
 public class DiemHs {
     private int maHS;
-    private int maMon;
     private float diemToan;
     private float diemNguVan;
     private float diemNgoaiNgu;
@@ -13,10 +12,10 @@ public class DiemHs {
     private float diemKhoaHoc;
     public DiemHs(){
     }
-    public DiemHs(int maHS, int maMon, float diemToan, float diemNguVan, float diemNgoaiNgu, float diemGDCD,
+    public DiemHs(int maHS, float diemToan, float diemNguVan, float diemNgoaiNgu, float diemGDCD,
             float diemLichSu, float diemTinHoc, float diemTheDuc, float diemKhoaHoc) {
         this.maHS = maHS;
-        this.maMon = maMon;
+      
         this.diemToan = diemToan;
         this.diemNguVan = diemNguVan;
         this.diemNgoaiNgu = diemNgoaiNgu;
@@ -32,12 +31,7 @@ public class DiemHs {
     public void setMaHS(int maHS) {
         this.maHS = maHS;
     }
-    public int getMaMon() {
-        return maMon;
-    }
-    public void setMaMon(int maMon) {
-        this.maMon = maMon;
-    }
+   
     public float getDiemToan() {
         return diemToan;
     }

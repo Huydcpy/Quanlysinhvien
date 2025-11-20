@@ -1,27 +1,27 @@
 package dao;
 import model.DiemHs;
+import service.DiemHS;
 import util.DBConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.List;
 public class DiemHSDAO {
     //Them diem
-    public boolean addDiem(DiemHs diem){
+    public boolean addDiem(DiemHS d){
         String sql = "INSERT INTO diemHS(maHS, diemToan, diemNguVan, diemNgoaiNgu, diemGDCD, diemLichSu, diemTinHoc, diemTheDuc, diemKhoaHoc) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)){
 
-             ps.setInt(1, diem.getMaHS());
-            ps.setFloat(2, diem.getDiemToan());
-            ps.setFloat(3, diem.getDiemNguVan());
-            ps.setFloat(4, diem.getDiemNgoaiNgu());
-            ps.setFloat(5, diem.getDiemGDCD());
-            ps.setFloat(6, diem.getDiemLichSu());
-            ps.setFloat(7, diem.getDiemTinHoc());
-            ps.setFloat(8, diem.getDiemTheDuc());
-            ps.setFloat(9, diem.getDiemKhoaHoc());
+             ps.setInt(1, d.getMaHS());
+            ps.setFloat(2, d.getDiemToan());
+            ps.setFloat(3, d.getDiemNguVan());
+            ps.setFloat(4, d.getDiemNgoaiNgu());
+            ps.setFloat(5, d.getDiemGDCD());
+            ps.setFloat(6, d.getDiemLichSu());
+            ps.setFloat(7, d.getDiemTinHoc());
+            ps.setFloat(8, d.getDiemTheDuc());
+            ps.setFloat(9, d.getDiemKhoaHoc());
 
             return ps.executeUpdate() > 0;
         }catch (Exception e){
@@ -57,7 +57,7 @@ public class DiemHSDAO {
             return null;
             }
         // Sua diem
-        public boolean updateDiem(DiemHs d){
+        public boolean updateDiem(DiemHS d){
             String sql = "UPDATE diemHS SET diemToan=?, diemNguVan=?, diemNgoaiNgu=?, diemGDCD=?, diemLichSu=?, diemTinHoc=?, diemTheDuc=?, diemKhoaHoc=? WHERE maHS=?";
             try(Connection conn = DBConnection.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)){
