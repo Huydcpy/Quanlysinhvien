@@ -9,6 +9,7 @@ public class HocSinh {
     private String gioiTinh;
     private String sdtOfBoMe;
     private String email;
+    public HocSinh(){};
     public HocSinh(int maHS, String hoTen, Date ngaySinh, int maLop, String diaChi, String gioiTinh, String sdtOfBoMe, String email) {
         this.maHS = maHS;
         this.hoTen = hoTen;
