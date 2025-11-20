@@ -1,6 +1,6 @@
 package dao;
 import model.DiemHs;
-import service.DiemHS;
+import service.DiemHSService;
 import util.DBConnection;
 
 import java.sql.Connection;
@@ -8,7 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 public class DiemHSDAO {
     //Them diem
-    public boolean addDiem(DiemHS d){
+    public boolean addDiem(DiemHs d){
         String sql = "INSERT INTO diemHS(maHS, diemToan, diemNguVan, diemNgoaiNgu, diemGDCD, diemLichSu, diemTinHoc, diemTheDuc, diemKhoaHoc) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)){
@@ -57,7 +57,7 @@ public class DiemHSDAO {
             return null;
             }
         // Sua diem
-        public boolean updateDiem(DiemHS d){
+        public boolean updateDiem(DiemHs d){
             String sql = "UPDATE diemHS SET diemToan=?, diemNguVan=?, diemNgoaiNgu=?, diemGDCD=?, diemLichSu=?, diemTinHoc=?, diemTheDuc=?, diemKhoaHoc=? WHERE maHS=?";
             try(Connection conn = DBConnection.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)){

@@ -9,14 +9,14 @@ public class DiemHSService {
     // Thêm điểm
     public boolean addDiem(int maHS, float toan, float nguVan, float ngoaiNgu, float gdcd,
                             float lichSu, float tinHoc, float theDuc, float khoaHoc) {
-        DiemHS d = new DiemHS();
+        DiemHs d = new DiemHs();
         return diemHSDAO.addDiem(d);
     }
 
     // Sửa điểm
     public boolean updateDiem(int maHS, float toan, float nguVan, float ngoaiNgu, float gdcd,
                               float lichSu, float tinHoc, float theDuc, float khoaHoc) {
-        DiemHS d = new DiemHS();
+        DiemHs d = new DiemHs();
         return diemHSDAO.updateDiem(d);
     }
 
@@ -31,10 +31,10 @@ public class DiemHSService {
     }
 
     // Tính điểm trung bình
-    public float tinhDiemTB(DiemHS d) {
+    public float tinhDiemTB(DiemHs d) {
         if (d == null) return 0;
         float sum = d.getDiemToan() + d.getDiemNguVan() + d.getDiemNgoaiNgu() + d.getDiemGDCD() +
-                    d.getDiemNgu + d.getDiemGDCD() + d.getDiemTheDuc() + d.getDiemKhoaHoc();
+                    d.getDiemLichSu() + d.getDiemTinHoc() + d.getDiemTheDuc() + d.getDiemKhoaHoc();
         return sum / 8;
     }
 }
