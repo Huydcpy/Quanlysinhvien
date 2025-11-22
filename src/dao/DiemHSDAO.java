@@ -1,19 +1,17 @@
 package dao;
 import model.DiemHs;
-import service.DiemHSService;
 import util.DBConnection;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-public class DiemHSDAO {
+public class DiemHsDAO {
     //Them diem
     public boolean addDiem(DiemHs d){
         String sql = "INSERT INTO diemHS(maHS, diemToan, diemNguVan, diemNgoaiNgu, diemGDCD, diemLichSu, diemTinHoc, diemTheDuc, diemKhoaHoc) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)){
 
-             ps.setInt(1, d.getMaHS());
+            ps.setInt(1, d.getMaHS());
             ps.setFloat(2, d.getDiemToan());
             ps.setFloat(3, d.getDiemNguVan());
             ps.setFloat(4, d.getDiemNgoaiNgu());

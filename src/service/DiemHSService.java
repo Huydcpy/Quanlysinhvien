@@ -1,10 +1,10 @@
 package service;
 
-import dao.DiemHSDAO;
+import dao.DiemHsDAO;
 import model.DiemHs;
 
 public class DiemHSService {
-    private DiemHSDAO diemHSDAO = new DiemHSDAO();
+    private DiemHsDAO diemHSDAO = new DiemHsDAO();
 
     // Thêm điểm
     public boolean addDiem(int maHS, float toan, float nguVan, float ngoaiNgu, float gdcd,
