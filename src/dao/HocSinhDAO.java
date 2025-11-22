@@ -8,17 +8,17 @@ import java.util.List;
 public class HocSinhDAO {
     // Thêm học Hocsinh;
     public boolean addHocSinh(HocSinh hs){
-        String sql = "INSERT INTO hocSinh(hoTen, ngaySinh, maLop, diaChi, gioiTinh, sdtOfBoMe, email) VALUES(?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO hocSinh(maHS,hoTen, ngaySinh, maLop, diaChi, gioiTinh, sdtOfBoMe, email) VALUES(?,?, ?, ?, ?, ?, ?, ?)";
         try(Connection conn = DBConnection.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql)){
-
-                ps.setString(1, hs.getHoTen());
-                ps.setDate(2, hs.getNgaySinh());
-                ps.setInt(3, hs.getMaLop());
-                ps.setString(4, hs.getDiachi());
-                ps.setString(5, hs.getGioiTinh());
-                ps.setString(6, hs.getSdtOfBoMe());
-                ps.setString(7, hs.getEmail());
+                ps.setInt(1, hs.getMaHS());
+                ps.setString(2, hs.getHoTen());
+                ps.setDate(3, hs.getNgaySinh());
+                ps.setInt(4, hs.getMaLop());
+                ps.setString(5, hs.getDiachi());
+                ps.setString(6, hs.getGioiTinh());
+                ps.setString(7, hs.getSdtOfBoMe());
+                ps.setString(8, hs.getEmail());
                 return ps.executeUpdate() > 0;
         }catch (Exception e){
             e.printStackTrace();
