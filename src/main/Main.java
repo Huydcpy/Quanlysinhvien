@@ -240,7 +240,31 @@ public class Main {
                     else {
                         System.out.println("Điểm Toán: " + d.getDiemToan());
                         System.out.println("Điểm Văn: " + d.getDiemNguVan());
+                        System.out.println("Điểm Ngoại Ngữ: "+d.getDiemGDCD());
+                        System.out.println("Điểm GDCD: " + d.getDiemLichSu());
+                        System.out.println("Điểm Tin Học: " + d.getDiemTinHoc());
+                        System.out.println("Điểm Thể Dục: " +d.getDiemTheDuc());
+                        System.out.println("Điểm Khoa Học: "+d.getDiemKhoaHoc());
                         System.out.println("Điểm TB: " + diemHSService.tinhDiemTB(d));
+                        if(diemHSService.tinhDiemTB(d) < 3){
+                            System.out.println("Học Lại");
+                        }
+                        else if(diemHSService.tinhDiemTB(d) < 5){
+                            System.out.println("Học Lực : Yếu");
+                        }
+                        else if(diemHSService.tinhDiemTB(d)< 8){
+                            System.out.println("Học lực: Trung bình");
+
+                        }
+                        else if(diemHSService.tinhDiemTB(d)< 9){
+                            System.out.println("Học lực: Khá");
+                        }
+                        else if(diemHSService.tinhDiemTB(d) < 10){
+                            System.out.println("Học lực: Giỏi");
+                        }
+                        else if(diemHSService.tinhDiemTB(d) == 10){
+                            System.out.println("Học lực: Xuât sắc");
+                        }
                     }
                     break;
 
