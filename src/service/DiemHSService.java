@@ -9,7 +9,8 @@ public class DiemHSService {
     // Thêm điểm
     public boolean addDiem(int maHS, float toan, float nguVan, float ngoaiNgu, float gdcd,
                             float lichSu, float tinHoc, float theDuc, float khoaHoc) {
-        DiemHs d = new DiemHs();
+        DiemHs d = new DiemHs( maHS, toan, nguVan,ngoaiNgu, gdcd,
+                            lichSu, tinHoc, theDuc,  khoaHoc);
         return diemHSDAO.addDiem(d);
     }
 
