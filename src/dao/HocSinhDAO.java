@@ -6,19 +6,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HocSinhDAO {
-    // Thêm học Hocsinh;
+    // Thêm học Hocsinh; (ĐÃ SỬA)
     public boolean addHocSinh(HocSinh hs){
-        String sql = "INSERT INTO hocSinh(maHS,hoTen, ngaySinh, maLop, diaChi, gioiTinh, sdtOfBoMe, email) VALUES(?,?, ?, ?, ?, ?, ?, ?)";
+        // Loại bỏ maHS khỏi danh sách cột, giả sử nó là AUTO_INCREMENT
+        String sql = "INSERT INTO hocSinh(hoTen, ngaySinh, maLop, diaChi, gioiTinh, sdtOfBoMe, email) VALUES(?, ?, ?, ?, ?, ?, ?)";
         try(Connection conn = DBConnection.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql)){
-                ps.setInt(1, hs.getMaHS());
-                ps.setString(2, hs.getHoTen());
-                ps.setDate(3, hs.getNgaySinh());
-                ps.setInt(4, hs.getMaLop());
-                ps.setString(5, hs.getDiachi());
-                ps.setString(6, hs.getGioiTinh());
-                ps.setString(7, hs.getSdtOfBoMe());
-                ps.setString(8, hs.getEmail());
+                // ps.setInt(1, hs.getMaHS()); // Removed to fix auto-increment issue
+                ps.setString(1, hs.getHoTen());
+                ps.setDate(2, hs.getNgaySinh());
+                ps.setInt(3, hs.getMaLop());
+                ps.setString(4, hs.getDiachi());
+                ps.setString(5, hs.getGioiTinh());
+                ps.setString(6, hs.getSdtOfBoMe());
+                ps.setString(7, hs.getEmail());
                 return ps.executeUpdate() > 0;
         }catch (Exception e){
             e.printStackTrace();

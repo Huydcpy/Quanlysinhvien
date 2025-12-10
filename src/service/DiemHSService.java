@@ -14,10 +14,11 @@ public class DiemHSService {
         return diemHSDAO.addDiem(d);
     }
 
-    // Sửa điểm
+    // Sửa điểm (ĐÃ SỬA)
     public boolean updateDiem(int maHS, float toan, float nguVan, float ngoaiNgu, float gdcd,
                               float lichSu, float tinHoc, float theDuc, float khoaHoc) {
-        DiemHs d = new DiemHs();
+        // Cần tạo đối tượng DiemHs với dữ liệu mới để DAO có thể cập nhật
+        DiemHs d = new DiemHs(maHS, toan, nguVan, ngoaiNgu, gdcd, lichSu, tinHoc, theDuc, khoaHoc);
         return diemHSDAO.updateDiem(d);
     }
 

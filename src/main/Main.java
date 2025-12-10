@@ -22,12 +22,12 @@ public class Main {
     public static void main(String[] args) {
 
         while (true) {
-            System.out.println("\n===== HỆ THỐNG QUẢN LÝ HỌC SINH =====");
-            System.out.println("1. Quản lý Lớp");
-            System.out.println("2. Quản lý Học Sinh");
-            System.out.println("3. Quản lý Điểm");
-            System.out.println("0. Thoát");
-            System.out.print("Chọn: ");
+            System.out.println("\n===== HE THONG QUAN LY HOC SINH =====");
+            System.out.println("1. Quan ly Lop");
+            System.out.println("2. Quan ly Hoc Sinh");
+            System.out.println("3. Quan ly Diem");
+            System.out.println("0. Thoat");
+            System.out.print("Chon: ");
             int chon = sc.nextInt();
 
             switch (chon) {
@@ -41,26 +41,26 @@ public class Main {
                     menuDiem();
                     break;
                 case 0:
-                    System.out.println("Thoát chương trình!");
+                    System.out.println("Thoat chuong trinh!");
                     return;
                 default:
-                    System.out.println("Lựa chọn không hợp lệ.");
+                    System.out.println("Lua chon khong hop le.");
             }
         }
     }
 
     // ============================
-    // MENU QUẢN LÝ LỚP
+    // MENU QUAN LY LOP
     // ============================
     public static void menuLop() {
         while (true) {
-            System.out.println("\n--- QUẢN LÝ LỚP ---");
-            System.out.println("1. Thêm lớp");
-            System.out.println("2. Xem danh sách lớp");
-            System.out.println("3. Sửa lớp");
-            System.out.println("4. Xóa lớp");
-            System.out.println("0. Quay lại");
-            System.out.print("Chọn: ");
+            System.out.println("\n--- QUAN LY LOP ---");
+            System.out.println("1. Them lop");
+            System.out.println("2. Xem danh sach lop");
+            System.out.println("3. Sua lop");
+            System.out.println("4. Xoa lop");
+            System.out.println("0. Quay lai");
+            System.out.print("Chon: ");
             int chon = sc.nextInt();
 
             if (chon == 0) return;
@@ -68,61 +68,61 @@ public class Main {
             switch (chon) {
                 case 1:
                     sc.nextLine();
-                    System.out.print("Tên lớp: ");
+                    System.out.print("Ten lop: ");
                     String tenLop = sc.nextLine();
-                    System.out.print("Khối: ");
+                    System.out.print("Khoi: ");
                     int khoi = sc.nextInt();
                     if (lopService.addLop(tenLop, khoi))
-                        System.out.println("Thêm lớp thành công!");
-                    else System.out.println("Thêm thất bại!");
+                        System.out.println("Them lop thanh cong!");
+                    else System.out.println("Them that bai!");
                     break;
 
                 case 2:
                     List<lop> lops = lopService.getAllLop();
                     for (lop l : lops) {
-                        System.out.println("Mã: " + l.getMaLop() + " | Tên lớp: " + l.getTenLop() + " | Khối: " + l.getKhoi());
+                        System.out.println("Ma: " + l.getMaLop() + " | Ten lop: " + l.getTenLop() + " | Khoi: " + l.getKhoi());
                     }
                     break;
 
                 case 3:
-                    System.out.print("Nhập mã lớp cần sửa: ");
+                    System.out.print("Nhap ma lop can sua: ");
                     int maLS = sc.nextInt();
                     sc.nextLine();
-                    System.out.print("Tên lớp mới: ");
+                    System.out.print("Ten lop moi: ");
                     String tenLopM = sc.nextLine();
-                    System.out.print("Khối: ");
+                    System.out.print("Khoi: ");
                     int khoiM = sc.nextInt();
                     if (lopService.updateLop(maLS, tenLopM, khoiM))
-                        System.out.println("Sửa thành công!");
-                    else System.out.println("Sửa thất bại!");
+                        System.out.println("Sua thanh cong!");
+                    else System.out.println("Sua that bai!");
                     break;
 
                 case 4:
-                    System.out.print("Nhập mã lớp cần xóa: ");
+                    System.out.print("Nhap ma lop can xoa: ");
                     int maLX = sc.nextInt();
                     if (lopService.deleteLop(maLX))
-                        System.out.println("Xóa thành công!");
-                    else System.out.println("Xóa thất bại!");
+                        System.out.println("Xoa thanh cong!");
+                    else System.out.println("Xoa that bai!");
                     break;
 
                 default:
-                    System.out.println("Sai lựa chọn.");
+                    System.out.println("Sai lua chon.");
             }
         }
     }
 
     // ============================
-    // MENU QUẢN LÝ HỌC SINH
+    // MENU QUAN LY HOC SINH
     // ============================
     public static void menuHocSinh() {
         while (true) {
-            System.out.println("\n--- QUẢN LÝ HỌC SINH ---");
-            System.out.println("1. Thêm học sinh");
-            System.out.println("2. Xem danh sách học sinh");
-            System.out.println("3. Sửa học sinh");
-            System.out.println("4. Xóa học sinh");
-            System.out.println("0. Quay lại");
-            System.out.print("Chọn: ");
+            System.out.println("\n--- QUAN LY HOC SINH ---");
+            System.out.println("1. Them hoc sinh");
+            System.out.println("2. Xem danh sach hoc sinh");
+            System.out.println("3. Sua hoc sinh");
+            System.out.println("4. Xoa hoc sinh");
+            System.out.println("0. Quay lai");
+            System.out.print("Chon: ");
             int chon = sc.nextInt();
 
             if (chon == 0) return;
@@ -130,94 +130,94 @@ public class Main {
             switch (chon) {
                 case 1:
                     sc.nextLine();
-                    System.out.print("Tên HS: ");
+                    System.out.print("Ten HS: ");
                     String ten = sc.nextLine();
-                    System.out.print("Giới tính: ");
+                    System.out.print("Gioi tinh: ");
                     String gt = sc.nextLine();
-                    System.out.print("Ngày sinh (yyyy-mm-dd): ");
+                    System.out.print("Ngay sinh (yyyy-mm-dd): ");
                     Date ns = Date.valueOf(sc.nextLine());
-                    System.out.print("Mã lớp: ");
+                    System.out.print("Ma lop: ");
                     int ml = sc.nextInt();
                     sc.nextLine();
-                    System.out.print("Địa chỉ: ");
+                    System.out.print("Dia chi: ");
                     String dc = sc.nextLine();
-                    System.out.print("SĐT bố mẹ: ");
+                    System.out.print("SDT bo me: ");
                     String sdt = sc.nextLine();
                     System.out.print("Email: ");
                     String email = sc.nextLine();
 
                     if (hocSinhService.addHocSinh(ten, gt, ns, ml, dc, sdt, email))
-                        System.out.println("Thêm thành công!");
-                    else System.out.println("Thêm thất bại!");
+                        System.out.println("Them thanh cong!");
+                    else System.out.println("Them that bai!");
                     break;
 
                 case 2:
                     List<HocSinh> hss = hocSinhService.getAllHocSinh();
                     for (HocSinh h : hss) {
-                        System.out.println(h.getMaHS() + " | " + h.getHoTen() + " | Lớp: " + h.getMaLop());
+                        System.out.println(h.getMaHS() + " | " + h.getHoTen() + " | Lop: " + h.getMaLop());
                     }
                     break;
 
                 case 3:
-                    System.out.print("Nhập mã HS cần sửa: ");
+                    System.out.print("Nhap ma HS can sua: ");
                     int maS = sc.nextInt();
                     sc.nextLine();
-                    System.out.print("Tên mới: ");
+                    System.out.print("Ten moi: ");
                     String tNew = sc.nextLine();
-                    System.out.print("Giới tính mới: ");
+                    System.out.print("Gioi tinh moi: ");
                     String gtNew = sc.nextLine();
-                    System.out.print("Ngày sinh mới (yyyy-mm-dd): ");
+                    System.out.print("Ngay sinh moi (yyyy-mm-dd): ");
                     Date nsNew = Date.valueOf(sc.nextLine());
-                    System.out.print("Mã lớp mới: ");
+                    System.out.print("Ma lop moi: ");
                     int mlNew = sc.nextInt();
                     sc.nextLine();
-                    System.out.print("Địa chỉ mới: ");
+                    System.out.print("Dia chi moi: ");
                     String dcNew = sc.nextLine();
-                    System.out.print("SĐT mới: ");
+                    System.out.print("SDT moi: ");
                     String sdtNew = sc.nextLine();
-                    System.out.print("Email mới: ");
+                    System.out.print("Email moi: ");
                     String emailNew = sc.nextLine();
 
                     if (hocSinhService.updateHocSinh(maS, tNew, gtNew, nsNew, mlNew, dcNew, sdtNew, emailNew))
-                        System.out.println("Cập nhật thành công!");
-                    else System.out.println("Cập nhật thất bại!");
+                        System.out.println("Cap nhat thanh cong!");
+                    else System.out.println("Cap nhat that bai!");
                     break;
 
                 case 4:
-                    System.out.print("Nhập mã HS cần xóa: ");
+                    System.out.print("Nhap ma HS can xoa: ");
                     int maX = sc.nextInt();
                     if (hocSinhService.deleteHocSinh(maX))
-                        System.out.println("Xóa thành công!");
-                    else System.out.println("Xóa thất bại!");
+                        System.out.println("Xoa thanh cong!");
+                    else System.out.println("Xoa that bai!");
                     break;
 
                 default:
-                    System.out.println("Sai lựa chọn.");
+                    System.out.println("Sai lua chon.");
             }
         }
     }
 
     // ============================
-    // MENU QUẢN LÝ ĐIỂM
+    // MENU QUAN LY DIEM
     // ============================
     public static void menuDiem() {
         while (true) {
-            System.out.println("\n--- QUẢN LÝ ĐIỂM ---");
-            System.out.println("1. Nhập điểm cho học sinh");
-            System.out.println("2. Xem điểm theo mã học sinh");
-            System.out.println("3. Sửa điểm");
-            System.out.println("4. Xóa điểm");
-            System.out.println("0. Quay lại");
-            System.out.print("Chọn: ");
+            System.out.println("\n--- QUAN LY DIEM ---");
+            System.out.println("1. Nhap diem cho hoc sinh");
+            System.out.println("2. Xem diem theo ma hoc sinh");
+            System.out.println("3. Sua diem");
+            System.out.println("4. Xoa diem");
+            System.out.println("0. Quay lai");
+            System.out.print("Chon: ");
             int chon = sc.nextInt();
 
             if (chon == 0) return;
 
             switch (chon) {
                 case 1:
-                    System.out.print("Mã học sinh: ");
+                    System.out.print("Ma hoc sinh: ");
                     int maHS = sc.nextInt();
-                    System.out.println("Nhập lần lượt điểm 8 môn:");
+                    System.out.println("Nhap lan luot diem 8 mon:");
                     float toan = sc.nextFloat();
                     float van = sc.nextFloat();
                     float nn = sc.nextFloat();
@@ -228,50 +228,51 @@ public class Main {
                     float kh = sc.nextFloat();
 
                     if (diemHSService.addDiem(maHS, toan, van, nn, gdcd, ls, tin, td, kh))
-                        System.out.println("Nhập điểm thành công!");
-                    else System.out.println("Thất bại!");
+                        System.out.println("Nhap diem thanh cong!");
+                    else System.out.println("That bai!");
                     break;
 
                 case 2:
-                    System.out.print("Nhập mã HS: ");
+                    System.out.print("Nhap ma HS: ");
                     int ma = sc.nextInt();
                     DiemHs d = diemHSService.getDiemByMaHS(ma);
-                    if (d == null) System.out.println("Không có dữ liệu!");
+                    if (d == null) System.out.println("Khong co du lieu!");
                     else {
-                        System.out.println("Điểm Toán: " + d.getDiemToan());
-                        System.out.println("Điểm Văn: " + d.getDiemNguVan());
-                        System.out.println("Điểm Ngoại Ngữ: "+d.getDiemGDCD());
-                        System.out.println("Điểm GDCD: " + d.getDiemLichSu());
-                        System.out.println("Điểm Tin Học: " + d.getDiemTinHoc());
-                        System.out.println("Điểm Thể Dục: " +d.getDiemTheDuc());
-                        System.out.println("Điểm Khoa Học: "+d.getDiemKhoaHoc());
-                        System.out.println("Điểm TB: " + diemHSService.tinhDiemTB(d));
+                        System.out.println("Diem Toan: " + d.getDiemToan());
+                        System.out.println("Diem Van: " + d.getDiemNguVan());
+                        System.out.println("Diem Ngoai Ngu: "+d.getDiemNgoaiNgu()); // Fix from previous step (DiemGDCD was here)
+                        System.out.println("Diem GDCD: " + d.getDiemGDCD()); // Fix from previous step (DiemLichSu was here)
+                        System.out.println("Diem Lich Su: " + d.getDiemLichSu()); // Fix from previous step (no output for LichSu)
+                        System.out.println("Diem Tin Hoc: " + d.getDiemTinHoc());
+                        System.out.println("Diem The Duc: " +d.getDiemTheDuc());
+                        System.out.println("Diem Khoa Hoc: "+d.getDiemKhoaHoc());
+                        System.out.println("Diem TB: " + diemHSService.tinhDiemTB(d));
                         if(diemHSService.tinhDiemTB(d) < 3){
-                            System.out.println("Học Lại");
+                            System.out.println("Hoc Lai");
                         }
                         else if(diemHSService.tinhDiemTB(d) < 5){
-                            System.out.println("Học Lực : Yếu");
+                            System.out.println("Hoc Luc : Yeu");
                         }
                         else if(diemHSService.tinhDiemTB(d)< 8){
-                            System.out.println("Học lực: Trung bình");
+                            System.out.println("Hoc luc: Trung binh");
 
                         }
                         else if(diemHSService.tinhDiemTB(d)< 9){
-                            System.out.println("Học lực: Khá");
+                            System.out.println("Hoc luc: Kha");
                         }
                         else if(diemHSService.tinhDiemTB(d) < 10){
-                            System.out.println("Học lực: Giỏi");
+                            System.out.println("Hoc luc: Gioi");
                         }
                         else if(diemHSService.tinhDiemTB(d) == 10){
-                            System.out.println("Học lực: Xuât sắc");
+                            System.out.println("Hoc luc: Xuat sac");
                         }
                     }
                     break;
 
                 case 3:
-                    System.out.print("Mã học sinh: ");
+                    System.out.print("Ma hoc sinh: ");
                     int maHS2 = sc.nextInt();
-                    System.out.println("Nhập lại 8 môn:");
+                    System.out.println("Nhap lai 8 mon:");
                     float t = sc.nextFloat();
                     float v = sc.nextFloat();
                     float n = sc.nextFloat();
@@ -282,20 +283,20 @@ public class Main {
                     float k = sc.nextFloat();
 
                     if (diemHSService.updateDiem(maHS2, t, v, n, g, l, ti, tduc, k))
-                        System.out.println("Cập nhật thành công!");
-                    else System.out.println("Cập nhật thất bại!");
+                        System.out.println("Cap nhat thanh cong!");
+                    else System.out.println("Cap nhat that bai!");
                     break;
 
                 case 4:
-                    System.out.print("Mã HS cần xóa điểm: ");
+                    System.out.print("Ma HS can xoa diem: ");
                     int maDel = sc.nextInt();
                     if (diemHSService.deleteDiem(maDel))
-                        System.out.println("Xóa thành công!");
-                    else System.out.println("Xóa thất bại!");
+                        System.out.println("Xoa thanh cong!");
+                    else System.out.println("Xoa that bai!");
                     break;
 
                 default:
-                    System.out.println("Sai lựa chọn.");
+                    System.out.println("Sai lua chon.");
             }
         }
     }
