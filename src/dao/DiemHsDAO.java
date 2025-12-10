@@ -4,6 +4,9 @@ import util.DBConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
 public class DiemHsDAO {
     //Them diem
     public boolean addDiem(DiemHs d){
@@ -26,6 +29,31 @@ public class DiemHsDAO {
             e.printStackTrace();
         
     }return false;
+    }
+    public List<DiemHs> getAllDiemHs() {
+        List<DiemHs> list = new ArrayList<>();
+        String sql = "SELECT * FROM diemHS";
+        try (Connection conn = DBConnection.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                DiemHs d = new DiemHs();
+                d.setMaHS(rs.getInt("maHS"));
+                d.setDiemToan(rs.getFloat("diemToan"));
+                d.setDiemNguVan(rs.getFloat("diemNguVan"));
+                d.setDiemNgoaiNgu(rs.getFloat("diemNgoaiNgu"));
+                d.setDiemGDCD(rs.getFloat("diemGDCD"));
+                d.setDiemLichSu(rs.getFloat("diemLichSu"));
+                d.setDiemTinHoc(rs.getFloat("diemTinHoc"));
+                d.setDiemTheDuc(rs.getFloat("diemTheDuc"));
+                d.setDiemKhoaHoc(rs.getFloat("diemKhoaHoc"));
+                list.add(d);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
     }
     //Lay diem theo maHS
     public DiemHs getDiemByMaHS(int maHS){

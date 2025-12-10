@@ -21,45 +21,21 @@ public class Main {
 
     public static void main(String[] args) {
 
+        // Launch the new GUI
+        QuanLyHocSinhGUI.main(args); // Thay the Console Menu bang GUI
+    }
+
+    // ============================
+    // MENU QUAN LY LOP
+    // (Giữ nguyên các hàm console để có thể chuyển đổi lại nếu cần)
+    // ============================
+    public static void menuLop() {
         while (true) {
             System.out.println("\n===== HE THONG QUAN LY HOC SINH =====");
             System.out.println("1. Quan ly Lop");
             System.out.println("2. Quan ly Hoc Sinh");
             System.out.println("3. Quan ly Diem");
             System.out.println("0. Thoat");
-            System.out.print("Chon: ");
-            int chon = sc.nextInt();
-
-            switch (chon) {
-                case 1:
-                    menuLop();
-                    break;
-                case 2:
-                    menuHocSinh();
-                    break;
-                case 3:
-                    menuDiem();
-                    break;
-                case 0:
-                    System.out.println("Thoat chuong trinh!");
-                    return;
-                default:
-                    System.out.println("Lua chon khong hop le.");
-            }
-        }
-    }
-
-    // ============================
-    // MENU QUAN LY LOP
-    // ============================
-    public static void menuLop() {
-        while (true) {
-            System.out.println("\n--- QUAN LY LOP ---");
-            System.out.println("1. Them lop");
-            System.out.println("2. Xem danh sach lop");
-            System.out.println("3. Sua lop");
-            System.out.println("4. Xoa lop");
-            System.out.println("0. Quay lai");
             System.out.print("Chon: ");
             int chon = sc.nextInt();
 

@@ -1,5 +1,6 @@
 package service;
 
+import java.util.List;
 import dao.DiemHsDAO;
 import model.DiemHs;
 
@@ -38,5 +39,9 @@ public class DiemHSService {
         float sum = d.getDiemToan() + d.getDiemNguVan() + d.getDiemNgoaiNgu() + d.getDiemGDCD() +
                     d.getDiemLichSu() + d.getDiemTinHoc() + d.getDiemTheDuc() + d.getDiemKhoaHoc();
         return sum / 8;
+    }
+
+    public List<DiemHs> getAllDiemHs() {
+        return diemHSDAO.getAllDiemHs();
     }
 }
