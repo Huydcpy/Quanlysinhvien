@@ -16,6 +16,7 @@ import javax.swing.table.DefaultTableModel;
 
 import model.lop;
 import service.LopService;
+import util.ReportUtil; // NEW IMPORT
 
 public class LopPanel extends JPanel {
 
@@ -35,6 +36,7 @@ public class LopPanel extends JPanel {
     private JButton btnUpdate;
     private JButton btnDelete;
     private JButton btnView; 
+    private JButton btnExport; // NEW FIELD
 
     public LopPanel() {
         setLayout(new BorderLayout(10, 10));
@@ -57,7 +59,7 @@ public class LopPanel extends JPanel {
         inputPanel.setBorder(new EmptyBorder(10, 0, 10, 0)); 
 
         txtMaLop = new JTextField(5);
-        txtMaLop.setEditable(false); // Ma Lop tu dong, chi editable khi lay tu bang de sua
+        txtMaLop.setEditable(false); 
         txtTenLop = new JTextField(15);
         txtKhoi = new JTextField(15);
         
@@ -75,12 +77,14 @@ public class LopPanel extends JPanel {
         btnAdd = new JButton("Them Lop"); 
         btnUpdate = new JButton("Sua Lop"); 
         btnDelete = new JButton("Xoa Lop"); 
-        btnView = new JButton("Xem Tat Ca Lop"); // Cap nhat ten nut
+        btnView = new JButton("Xem Tat Ca Lop"); 
+        btnExport = new JButton("Xuat File CSV"); // NEW BUTTON
         
         controlPanel.add(btnAdd);
         controlPanel.add(btnUpdate);
         controlPanel.add(btnDelete);
         controlPanel.add(btnView);
+        controlPanel.add(btnExport); // ADD BUTTON
         
         JPanel southPanel = new JPanel(new BorderLayout());
         southPanel.add(controlPanel, BorderLayout.WEST);
@@ -100,9 +104,9 @@ public class LopPanel extends JPanel {
         btnUpdate.addActionListener(e -> updateLopHandler()); 
         btnDelete.addActionListener(e -> deleteLopHandler()); 
         
-        // Cap nhat listeners cho chuc nang Tim kiem/Xem tat ca
-        btnView.addActionListener(e -> loadLopData(null)); // Load All
-        btnSearch.addActionListener(e -> searchLopHandler()); // Search Listener
+        btnView.addActionListener(e -> loadLopData(null)); 
+        btnSearch.addActionListener(e -> searchLopHandler()); 
+        btnExport.addActionListener(e -> exportLopHandler()); // NEW LISTENER
 
         // Them Listener de dien du lieu len form khi chon dong tren bang
         classTable.getSelectionModel().addListSelectionListener(e -> {
@@ -111,7 +115,7 @@ public class LopPanel extends JPanel {
                 txtMaLop.setText(tableModel.getValueAt(selectedRow, 0).toString());
                 txtTenLop.setText(tableModel.getValueAt(selectedRow, 1).toString());
                 txtKhoi.setText(tableModel.getValueAt(selectedRow, 2).toString());
-                txtMaLop.setEditable(false); // Khoa Ma Lop
+                txtMaLop.setEditable(false); 
             }
         });
         
@@ -136,9 +140,12 @@ public class LopPanel extends JPanel {
         loadLopData(searchTerm);
         clearInputs();
     }
+    
+    private void exportLopHandler() { // NEW HANDLER
+        ReportUtil.exportTableToCSV(classTable, "DanhSachLop.csv");
+    }
 
-
-    private void loadLopData(String searchTerm) { // Cap nhat signature
+    private void loadLopData(String searchTerm) {
         try {
             tableModel.setRowCount(0);
             List<lop> lops;
@@ -146,7 +153,7 @@ public class LopPanel extends JPanel {
             if (searchTerm == null || searchTerm.isEmpty()) {
                 lops = lopService.getAllLop(); 
             } else {
-                lops = lopService.searchLop(searchTerm); // Goi LopService.searchLop
+                lops = lopService.searchLop(searchTerm); 
             }
             
             for (lop l : lops) {
@@ -176,10 +183,10 @@ public class LopPanel extends JPanel {
             return;
         }
 
-        if (lopService.addLop(tenLop, khoi)) { // Goi service them lop
+        if (lopService.addLop(tenLop, khoi)) { 
             JOptionPane.showMessageDialog(this, "Them lop thanh cong!", "Thong Bao", JOptionPane.INFORMATION_MESSAGE);
             clearInputs();
-            loadLopData(null); // Cap nhat: Load All
+            loadLopData(null); 
         } else {
             JOptionPane.showMessageDialog(this, "Them lop that bai! Kiem tra log hoac du lieu dau vao.", "Loi Xu Ly", JOptionPane.ERROR_MESSAGE);
         }
@@ -200,9 +207,9 @@ public class LopPanel extends JPanel {
             int maLop = Integer.parseInt(maLopStr);
             int khoi = Integer.parseInt(khoiStr);
             
-            if (lopService.updateLop(maLop, tenLop, khoi)) { // Goi service sua lop
+            if (lopService.updateLop(maLop, tenLop, khoi)) { 
                 JOptionPane.showMessageDialog(this, "Sua lop thanh cong!", "Thong Bao", JOptionPane.INFORMATION_MESSAGE);
-                loadLopData(null); // Cap nhat: Load All
+                loadLopData(null); 
                 clearInputs();
             } else {
                 JOptionPane.showMessageDialog(this, "Sua lop that bai! Kiem tra Ma Lop hoac du lieu.", "Loi Xu Ly", JOptionPane.ERROR_MESSAGE);
@@ -228,9 +235,9 @@ public class LopPanel extends JPanel {
                 "Ban co chac chan muon xoa Lop co Ma " + maLop + "?", "Xac Nhan Xoa", JOptionPane.YES_NO_OPTION);
 
             if (confirm == JOptionPane.YES_OPTION) {
-                if (lopService.deleteLop(maLop)) { // Goi service xoa lop
+                if (lopService.deleteLop(maLop)) { 
                     JOptionPane.showMessageDialog(this, "Xoa lop thanh cong!", "Thong Bao", JOptionPane.INFORMATION_MESSAGE);
-                    loadLopData(null); // Cap nhat: Load All
+                    loadLopData(null); 
                     clearInputs();
                 } else {
                     JOptionPane.showMessageDialog(this, "Xoa that bai! Kiem tra rang buoc khoa ngoai (co HS trong lop nay).", "Loi Xu Ly", JOptionPane.ERROR_MESSAGE);

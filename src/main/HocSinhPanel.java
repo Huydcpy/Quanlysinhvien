@@ -19,6 +19,7 @@ import javax.swing.table.DefaultTableModel;
 
 import model.HocSinh;
 import service.HocSinhService;
+import util.ReportUtil; // NEW IMPORT
 
 public class HocSinhPanel extends JPanel {
 
@@ -46,6 +47,7 @@ public class HocSinhPanel extends JPanel {
     private JButton btnDelete;
     private JButton btnView;
     private JButton btnSearch;
+    private JButton btnExport; // NEW FIELD
 
     public HocSinhPanel() {
         setLayout(new BorderLayout(10, 10));
@@ -61,7 +63,7 @@ public class HocSinhPanel extends JPanel {
         JPanel searchPanel = createSearchPanel();
         topPanel.add(searchPanel, BorderLayout.SOUTH);
         
-        add(topPanel, BorderLayout.NORTH);
+        add(topPanel, BorderLayout.NORTH); // CAP NHAT LAYOUT
 
         // 2. Panel Nhap lieu (Form Panel)
         JPanel inputPanel = createInputPanel();
@@ -79,15 +81,16 @@ public class HocSinhPanel extends JPanel {
         JScrollPane scrollPane = new JScrollPane(studentTable);
         add(scrollPane, BorderLayout.CENTER);
         
-        // 5. Them Event Listeners
+        // 5. Thêm Event Listeners
         btnAdd.addActionListener(e -> addHocSinhHandler());
         btnUpdate.addActionListener(e -> updateHocSinhHandler());
         btnDelete.addActionListener(e -> deleteHocSinhHandler());
         
-        // Cap nhat va them listeners cho chuc nang Tim kiem/Xem tat ca
+        // Cap nhat va them listeners cho chuc nang Tim kiem/Xem tat ca/Export
         btnView.setText("Xem Tat Ca Hoc Sinh");
-        btnView.addActionListener(e -> loadHocSinhData(null)); // Load All
-        btnSearch.addActionListener(e -> searchHocSinhHandler()); // Search listener
+        btnView.addActionListener(e -> loadHocSinhData(null)); 
+        btnSearch.addActionListener(e -> searchHocSinhHandler()); 
+        btnExport.addActionListener(e -> exportHocSinhHandler()); // NEW LISTENER
 
         // Them Listener de dien du lieu len form khi chon dong tren bang
         studentTable.getSelectionModel().addListSelectionListener(e -> {
@@ -95,13 +98,13 @@ public class HocSinhPanel extends JPanel {
                 int selectedRow = studentTable.getSelectedRow();
                 txtMaHS.setText(tableModel.getValueAt(selectedRow, 0).toString());
                 txtHoTen.setText(tableModel.getValueAt(selectedRow, 1).toString());
-                txtNgaySinh.setText(tableModel.getValueAt(selectedRow, 2).toString()); // Ngay da duoc chuyen sang DD-MM-YYYY
+                txtNgaySinh.setText(tableModel.getValueAt(selectedRow, 2).toString()); 
                 txtMaLop.setText(tableModel.getValueAt(selectedRow, 3).toString());
                 txtGioiTinh.setText(tableModel.getValueAt(selectedRow, 4).toString());
                 txtDiaChi.setText(tableModel.getValueAt(selectedRow, 5).toString());
                 txtSdtBoMe.setText(tableModel.getValueAt(selectedRow, 6).toString());
                 txtEmail.setText(tableModel.getValueAt(selectedRow, 7).toString());
-                txtMaHS.setEditable(false); // Khoa Ma HS
+                txtMaHS.setEditable(false); 
             }
         });
         
@@ -125,6 +128,10 @@ public class HocSinhPanel extends JPanel {
         String searchTerm = txtSearch.getText().trim();
         loadHocSinhData(searchTerm);
         clearHocSinhInputs();
+    }
+    
+    private void exportHocSinhHandler() { // NEW HANDLER
+        ReportUtil.exportTableToCSV(studentTable, "DanhSachHocSinh.csv");
     }
     
     private JPanel createInputPanel() {
@@ -168,16 +175,18 @@ public class HocSinhPanel extends JPanel {
         btnUpdate = new JButton("Sua Hoc Sinh"); 
         btnDelete = new JButton("Xoa Hoc Sinh"); 
         btnView = new JButton("Xem Danh Sach Hoc Sinh"); 
+        btnExport = new JButton("Xuat File CSV"); // NEW BUTTON
         
         controlPanel.add(btnAdd);
         controlPanel.add(btnUpdate);
         controlPanel.add(btnDelete);
         controlPanel.add(btnView);
+        controlPanel.add(btnExport); // ADD BUTTON
         
         return controlPanel;
     }
 
-    private void loadHocSinhData(String searchTerm) { // Cap nhat signature
+    private void loadHocSinhData(String searchTerm) {
         try {
             tableModel.setRowCount(0);
             List<HocSinh> hss; 
@@ -188,14 +197,14 @@ public class HocSinhPanel extends JPanel {
                  hss = hocSinhService.searchHocSinh(searchTerm); // Goi service search
             }
             
-            for (HocSinh h : hss) { // Su dung model HocSinh.java
+            for (HocSinh h : hss) { 
                 // CHUYEN DOI DINH DANG NGAY KHI HIEN THI
                 String ngaySinhFormatted = dateFormat.format(h.getNgaySinh());
                 
                 Object[] row = {
                     h.getMaHS(),
                     h.getHoTen(),
-                    ngaySinhFormatted, // Ngay sinh da duoc dinh dang
+                    ngaySinhFormatted, 
                     h.getMaLop(),
                     h.getGioiTinh(),
                     h.getDiachi(),
@@ -237,17 +246,15 @@ public class HocSinhPanel extends JPanel {
         }
 
         try {
-            // Loi NumberFormatException co the xay ra o day
             int maLop = Integer.parseInt(maLopStr);
             
-            // CHUYEN DOI DINH DANG NGAY KHI LUU (String DD-MM-YYYY -> java.sql.Date YYYY-MM-DD)
             java.util.Date parsedDate = dateFormat.parse(ngaySinhStr);
             Date ngaySinh = new Date(parsedDate.getTime());
             
-            if (hocSinhService.addHocSinh(hoTen, gioiTinh, ngaySinh, maLop, diaChi, sdtBoMe, email)) { // Goi service them hoc sinh
+            if (hocSinhService.addHocSinh(hoTen, gioiTinh, ngaySinh, maLop, diaChi, sdtBoMe, email)) { 
                 JOptionPane.showMessageDialog(this, "Them hoc sinh thanh cong!", "Thong Bao", JOptionPane.INFORMATION_MESSAGE);
                 clearHocSinhInputs();
-                loadHocSinhData(null); // Cap nhat: Load All
+                loadHocSinhData(null); 
             } else {
                 JOptionPane.showMessageDialog(this, "Them hoc sinh that bai! Kiem tra Ma Lop co ton tai.", "Loi Xu Ly", JOptionPane.ERROR_MESSAGE);
             }
@@ -277,18 +284,16 @@ public class HocSinhPanel extends JPanel {
         }
 
         try {
-            // Loi NumberFormatException co the xay ra o day
             int maHS = Integer.parseInt(maHSStr);
             int maLop = Integer.parseInt(maLopStr);
             
-            // CHUYEN DOI DINH DANG NGAY KHI LUU
             java.util.Date parsedDate = dateFormat.parse(ngaySinhStr);
             Date ngaySinh = new Date(parsedDate.getTime());
             
-            if (hocSinhService.updateHocSinh(maHS, hoTen, gioiTinh, ngaySinh, maLop, diaChi, sdtBoMe, email)) { // Goi service cap nhat hoc sinh
+            if (hocSinhService.updateHocSinh(maHS, hoTen, gioiTinh, ngaySinh, maLop, diaChi, sdtBoMe, email)) { 
                 JOptionPane.showMessageDialog(this, actionName + " hoc sinh thanh cong!", "Thong Bao", JOptionPane.INFORMATION_MESSAGE);
                 clearHocSinhInputs();
-                loadHocSinhData(null); // Cap nhat: Load All
+                loadHocSinhData(null); 
             } else {
                 JOptionPane.showMessageDialog(this, actionName + " that bai! Kiem tra Ma HS hoac Ma Lop.", "Loi Xu Ly", JOptionPane.ERROR_MESSAGE);
             }
@@ -305,7 +310,6 @@ public class HocSinhPanel extends JPanel {
     
     // --- Xoa Hoc Sinh ---
     private void deleteHocSinhHandler() {
-        // Khong can thay doi, chi sua thong bao loi (neu co)
         String maHSStr = txtMaHS.getText().trim();
         
         if (maHSStr.isEmpty()) {
@@ -320,10 +324,10 @@ public class HocSinhPanel extends JPanel {
                 "Ban co chac chan muon xoa Hoc Sinh co Ma " + maHS + "?", "Xac Nhan Xoa", JOptionPane.YES_NO_OPTION);
 
             if (confirm == JOptionPane.YES_OPTION) {
-                if (hocSinhService.deleteHocSinh(maHS)) { // Goi service xoa hoc sinh
+                if (hocSinhService.deleteHocSinh(maHS)) { 
                     JOptionPane.showMessageDialog(this, "Xoa hoc sinh thanh cong!", "Thong Bao", JOptionPane.INFORMATION_MESSAGE);
                     clearHocSinhInputs();
-                    loadHocSinhData(null); // Cap nhat: Load All
+                    loadHocSinhData(null); 
                 } else {
                     JOptionPane.showMessageDialog(this, "Xoa that bai! Kiem tra Ma HS hoac rang buoc khoa ngoai.", "Loi Xu Ly", JOptionPane.ERROR_MESSAGE);
                 }

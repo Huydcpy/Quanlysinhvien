@@ -1,6 +1,7 @@
 package main;
 
 import java.awt.BorderLayout;
+import java.awt.FlowLayout; // NEW IMPORT
 import java.awt.GridLayout;
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +19,7 @@ import model.DiemHs;
 import model.HocSinh;
 import service.DiemHSService;
 import service.HocSinhService;
+import util.ReportUtil; // NEW IMPORT
 
 public class ThongKePanel extends JPanel {
 
@@ -36,6 +38,8 @@ public class ThongKePanel extends JPanel {
     private JLabel lblTrungBinh;
     private JLabel lblYeu;
     private JLabel lblHocLai;
+    
+    private JButton btnExport; // NEW FIELD
 
     public ThongKePanel() {
         setLayout(new BorderLayout(10, 10));
@@ -58,10 +62,18 @@ public class ThongKePanel extends JPanel {
         JScrollPane scrollPane = new JScrollPane(resultTable);
         add(scrollPane, BorderLayout.CENTER);
 
-        // 4. Nut tai lai
+        // 4. Nut tai lai & Export (UPDATED LAYOUT)
         JButton btnRefresh = new JButton("Tai lai Thong ke");
         btnRefresh.addActionListener(e -> loadThongKeData());
-        add(btnRefresh, BorderLayout.SOUTH);
+        
+        btnExport = new JButton("Xuat File CSV"); // NEW BUTTON
+        btnExport.addActionListener(e -> exportThongKeHandler()); // NEW LISTENER
+
+        JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        bottomPanel.add(btnRefresh);
+        bottomPanel.add(btnExport); 
+        
+        add(bottomPanel, BorderLayout.SOUTH);
 
         // Load du lieu ban dau
         loadThongKeData();
@@ -101,6 +113,10 @@ public class ThongKePanel extends JPanel {
         summaryPanel.add(lblHocLai);
 
         return summaryPanel;
+    }
+    
+    private void exportThongKeHandler() { // NEW HANDLER
+        ReportUtil.exportTableToCSV(resultTable, "ThongKeHocLuc.csv");
     }
 
     private void loadThongKeData() {
@@ -174,22 +190,22 @@ public class ThongKePanel extends JPanel {
     
     // Ham Helper de xac dinh Hoc Luc (Sao chep logic tu Main.java console)
     private String getHocLuc(float diemTB) {
-        if(diemTB < 3){ //
+        if(diemTB < 3){ 
             return "Hoc Lai";
         }
-        else if(diemTB < 5){ //
+        else if(diemTB < 5){ 
             return "Yeu";
         }
-        else if(diemTB < 8){ //
+        else if(diemTB < 8){ 
             return "Trung binh";
         }
-        else if(diemTB < 9){ //
+        else if(diemTB < 9){ 
             return "Kha";
         }
-        else if(diemTB < 10){ //
+        else if(diemTB < 10){ 
             return "Gioi";
         }
-        else if(diemTB == 10){ //
+        else if(diemTB == 10){ 
             return "Xuat sac";
         }
         return "Khong xac dinh";
