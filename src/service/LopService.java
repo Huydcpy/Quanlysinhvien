@@ -14,6 +14,13 @@ public class LopService {
         lop lop = new lop(0, tenLop, khoi);
         return lopDAO.addLop(lop);
     }
+    // Tim lop
+    public List<lop> searchLop(String searchTerm) {
+    if (searchTerm == null || searchTerm.trim().isEmpty()) {
+        return lopDAO.getAllLop();
+    }
+    return lopDAO.searchLop(searchTerm.trim());
+}
     
     // Lay danh sach lop
     public List<lop> getAllLop(){

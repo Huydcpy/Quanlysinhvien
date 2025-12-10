@@ -38,21 +38,30 @@ public class HocSinhPanel extends JPanel {
     private JTextField txtDiaChi;
     private JTextField txtSdtBoMe;
     private JTextField txtEmail;
+    private JTextField txtSearch;
     
     // Cac nut chuc nang
     private JButton btnAdd;
     private JButton btnUpdate;
     private JButton btnDelete;
     private JButton btnView;
+    private JButton btnSearch;
 
     public HocSinhPanel() {
         setLayout(new BorderLayout(10, 10));
         setBorder(new EmptyBorder(10, 10, 10, 10));
         
-        // 1. Tieu de
+        // 1. Tieu de & Search Panel
         JLabel lblTitle = new JLabel("--- QUAN LY HOC SINH (GUI) ---");
         lblTitle.setHorizontalAlignment(JLabel.CENTER);
-        add(lblTitle, BorderLayout.NORTH);
+        
+        JPanel topPanel = new JPanel(new BorderLayout());
+        topPanel.add(lblTitle, BorderLayout.NORTH);
+        
+        JPanel searchPanel = createSearchPanel();
+        topPanel.add(searchPanel, BorderLayout.SOUTH);
+        
+        add(topPanel, BorderLayout.NORTH);
 
         // 2. Panel Nhap lieu (Form Panel)
         JPanel inputPanel = createInputPanel();
@@ -70,11 +79,15 @@ public class HocSinhPanel extends JPanel {
         JScrollPane scrollPane = new JScrollPane(studentTable);
         add(scrollPane, BorderLayout.CENTER);
         
-        // 5. Thêm Event Listeners
+        // 5. Them Event Listeners
         btnAdd.addActionListener(e -> addHocSinhHandler());
         btnUpdate.addActionListener(e -> updateHocSinhHandler());
         btnDelete.addActionListener(e -> deleteHocSinhHandler());
-        btnView.addActionListener(e -> loadHocSinhData());
+        
+        // Cap nhat va them listeners cho chuc nang Tim kiem/Xem tat ca
+        btnView.setText("Xem Tat Ca Hoc Sinh");
+        btnView.addActionListener(e -> loadHocSinhData(null)); // Load All
+        btnSearch.addActionListener(e -> searchHocSinhHandler()); // Search listener
 
         // Them Listener de dien du lieu len form khi chon dong tren bang
         studentTable.getSelectionModel().addListSelectionListener(e -> {
@@ -93,7 +106,25 @@ public class HocSinhPanel extends JPanel {
         });
         
         // Load du lieu ban dau
-        loadHocSinhData();
+        loadHocSinhData(null);
+    }
+
+    private JPanel createSearchPanel() {
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 5));
+        txtSearch = new JTextField(25);
+        btnSearch = new JButton("Tim/Loc HS (Ten/Ma/Lop)");
+
+        panel.add(new JLabel("Tim kiem (Ten/Ma/MaLop):"));
+        panel.add(txtSearch);
+        panel.add(btnSearch);
+
+        return panel;
+    }
+    
+    private void searchHocSinhHandler() {
+        String searchTerm = txtSearch.getText().trim();
+        loadHocSinhData(searchTerm);
+        clearHocSinhInputs();
     }
     
     private JPanel createInputPanel() {
@@ -146,10 +177,16 @@ public class HocSinhPanel extends JPanel {
         return controlPanel;
     }
 
-    private void loadHocSinhData() {
+    private void loadHocSinhData(String searchTerm) { // Cap nhat signature
         try {
             tableModel.setRowCount(0);
-            List<HocSinh> hss = hocSinhService.getAllHocSinh(); // Goi service
+            List<HocSinh> hss; 
+            
+            if (searchTerm == null || searchTerm.isEmpty()) {
+                 hss = hocSinhService.getAllHocSinh(); // Load All
+            } else {
+                 hss = hocSinhService.searchHocSinh(searchTerm); // Goi service search
+            }
             
             for (HocSinh h : hss) { // Su dung model HocSinh.java
                 // CHUYEN DOI DINH DANG NGAY KHI HIEN THI
@@ -200,7 +237,7 @@ public class HocSinhPanel extends JPanel {
         }
 
         try {
-            // Lỗi NumberFormatException có thể xảy ra ở đây
+            // Loi NumberFormatException co the xay ra o day
             int maLop = Integer.parseInt(maLopStr);
             
             // CHUYEN DOI DINH DANG NGAY KHI LUU (String DD-MM-YYYY -> java.sql.Date YYYY-MM-DD)
@@ -210,7 +247,7 @@ public class HocSinhPanel extends JPanel {
             if (hocSinhService.addHocSinh(hoTen, gioiTinh, ngaySinh, maLop, diaChi, sdtBoMe, email)) { // Goi service them hoc sinh
                 JOptionPane.showMessageDialog(this, "Them hoc sinh thanh cong!", "Thong Bao", JOptionPane.INFORMATION_MESSAGE);
                 clearHocSinhInputs();
-                loadHocSinhData();
+                loadHocSinhData(null); // Cap nhat: Load All
             } else {
                 JOptionPane.showMessageDialog(this, "Them hoc sinh that bai! Kiem tra Ma Lop co ton tai.", "Loi Xu Ly", JOptionPane.ERROR_MESSAGE);
             }
@@ -224,7 +261,7 @@ public class HocSinhPanel extends JPanel {
     
     // --- Sua Hoc Sinh ---
     private void updateHocSinhHandler() {
-        String actionName = "Cap nhat"; // Khai bao actionName ben ngoai khoi try/catch
+        String actionName = "Cap nhat"; 
         String maHSStr = txtMaHS.getText().trim();
         String hoTen = txtHoTen.getText().trim();
         String gioiTinh = txtGioiTinh.getText().trim();
@@ -240,7 +277,7 @@ public class HocSinhPanel extends JPanel {
         }
 
         try {
-            // Lỗi NumberFormatException có thể xảy ra ở đây
+            // Loi NumberFormatException co the xay ra o day
             int maHS = Integer.parseInt(maHSStr);
             int maLop = Integer.parseInt(maLopStr);
             
@@ -251,7 +288,7 @@ public class HocSinhPanel extends JPanel {
             if (hocSinhService.updateHocSinh(maHS, hoTen, gioiTinh, ngaySinh, maLop, diaChi, sdtBoMe, email)) { // Goi service cap nhat hoc sinh
                 JOptionPane.showMessageDialog(this, actionName + " hoc sinh thanh cong!", "Thong Bao", JOptionPane.INFORMATION_MESSAGE);
                 clearHocSinhInputs();
-                loadHocSinhData();
+                loadHocSinhData(null); // Cap nhat: Load All
             } else {
                 JOptionPane.showMessageDialog(this, actionName + " that bai! Kiem tra Ma HS hoac Ma Lop.", "Loi Xu Ly", JOptionPane.ERROR_MESSAGE);
             }
@@ -286,7 +323,7 @@ public class HocSinhPanel extends JPanel {
                 if (hocSinhService.deleteHocSinh(maHS)) { // Goi service xoa hoc sinh
                     JOptionPane.showMessageDialog(this, "Xoa hoc sinh thanh cong!", "Thong Bao", JOptionPane.INFORMATION_MESSAGE);
                     clearHocSinhInputs();
-                    loadHocSinhData();
+                    loadHocSinhData(null); // Cap nhat: Load All
                 } else {
                     JOptionPane.showMessageDialog(this, "Xoa that bai! Kiem tra Ma HS hoac rang buoc khoa ngoai.", "Loi Xu Ly", JOptionPane.ERROR_MESSAGE);
                 }

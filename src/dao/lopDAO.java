@@ -22,6 +22,32 @@ public class lopDAO {
                 }
                 return false;
     }
+    // Tim lop
+    public List<lop> searchLop(String searchTerm) {
+    List<lop> list = new ArrayList<>();
+    // Tim theo tenLop hoac Khoi (chuyen Khoi sang chuoi de tim kiem)
+    String sql = "SELECT * FROM lop WHERE tenLop LIKE ? OR CAST(khoi AS CHAR) LIKE ?";
+    try (Connection conn = DBConnection.getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql)) {
+
+        String searchPattern = "%" + searchTerm + "%";
+        ps.setString(1, searchPattern);
+        ps.setString(2, searchPattern);
+
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            lop lop = new lop(
+                rs.getInt("maLop"),
+                rs.getString("tenLop"),
+                rs.getInt("khoi")
+            );
+            list.add(lop);
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return list;
+}
     
     // Lay danh sach lop
     public List<lop> getAllLop(){

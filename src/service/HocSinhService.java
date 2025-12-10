@@ -40,4 +40,12 @@ public class HocSinhService {
         return hocSinhDAO.deleteHocSinh(maHS);
     }
     
+    // Tim kiem hoc sinh (NEW)
+    public List<HocSinh> searchHocSinh(String searchTerm){
+        if(searchTerm == null || searchTerm.trim().isEmpty()){
+            return hocSinhDAO.getAllHocSinh();
+        }
+        // Goi DAO de thuc hien truy van tim kiem
+        return hocSinhDAO.searchHocSinh(searchTerm.trim());
+    }
 }

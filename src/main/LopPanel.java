@@ -24,11 +24,13 @@ public class LopPanel extends JPanel {
     private DefaultTableModel tableModel;
 
     // Cac truong nhap lieu
+    private JTextField txtSearch;
     private JTextField txtMaLop;
     private JTextField txtTenLop;
     private JTextField txtKhoi;
     
     // Cac nut chuc nang
+    private JButton btnSearch;
     private JButton btnAdd;
     private JButton btnUpdate;
     private JButton btnDelete;
@@ -38,10 +40,17 @@ public class LopPanel extends JPanel {
         setLayout(new BorderLayout(10, 10));
         setBorder(new EmptyBorder(10, 10, 10, 10));
         
-        // 1. Tieu de
+        // 1. Tieu de & Search Panel
         JLabel lblTitle = new JLabel("--- QUAN LY LOP (GUI) ---");
         lblTitle.setHorizontalAlignment(JLabel.CENTER);
-        add(lblTitle, BorderLayout.NORTH);
+        
+        JPanel topPanel = new JPanel(new BorderLayout()); 
+        topPanel.add(lblTitle, BorderLayout.NORTH);
+
+        JPanel searchPanel = createSearchPanel();
+        topPanel.add(searchPanel, BorderLayout.SOUTH);
+        
+        add(topPanel, BorderLayout.NORTH);
 
         // 2. Panel Nhap lieu (Form Panel)
         JPanel inputPanel = new JPanel(new GridLayout(4, 2, 5, 5));
@@ -52,11 +61,11 @@ public class LopPanel extends JPanel {
         txtTenLop = new JTextField(15);
         txtKhoi = new JTextField(15);
         
-        inputPanel.add(new JLabel("Ma Lop (Tu dong):")); // Tieng Viet khong dau
+        inputPanel.add(new JLabel("Ma Lop (Tu dong):")); 
         inputPanel.add(txtMaLop);
-        inputPanel.add(new JLabel("Ten Lop:")); // Tieng Viet khong dau
+        inputPanel.add(new JLabel("Ten Lop:")); 
         inputPanel.add(txtTenLop);
-        inputPanel.add(new JLabel("Khoi:")); // Tieng Viet khong dau
+        inputPanel.add(new JLabel("Khoi:")); 
         inputPanel.add(txtKhoi);
 
         add(inputPanel, BorderLayout.WEST); 
@@ -66,7 +75,7 @@ public class LopPanel extends JPanel {
         btnAdd = new JButton("Them Lop"); 
         btnUpdate = new JButton("Sua Lop"); 
         btnDelete = new JButton("Xoa Lop"); 
-        btnView = new JButton("Xem Danh Sach Lop"); 
+        btnView = new JButton("Xem Tat Ca Lop"); // Cap nhat ten nut
         
         controlPanel.add(btnAdd);
         controlPanel.add(btnUpdate);
@@ -88,9 +97,12 @@ public class LopPanel extends JPanel {
         
         // 5. Them Event Listeners
         btnAdd.addActionListener(e -> addLopHandler());
-        btnUpdate.addActionListener(e -> updateLopHandler()); // Su kien Sua
-        btnDelete.addActionListener(e -> deleteLopHandler()); // Su kien Xoa
-        btnView.addActionListener(e -> loadLopData());
+        btnUpdate.addActionListener(e -> updateLopHandler()); 
+        btnDelete.addActionListener(e -> deleteLopHandler()); 
+        
+        // Cap nhat listeners cho chuc nang Tim kiem/Xem tat ca
+        btnView.addActionListener(e -> loadLopData(null)); // Load All
+        btnSearch.addActionListener(e -> searchLopHandler()); // Search Listener
 
         // Them Listener de dien du lieu len form khi chon dong tren bang
         classTable.getSelectionModel().addListSelectionListener(e -> {
@@ -104,15 +116,41 @@ public class LopPanel extends JPanel {
         });
         
         // Load du lieu ban dau
-        loadLopData();
+        loadLopData(null);
+    }
+    
+    private JPanel createSearchPanel() {
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
+        txtSearch = new JTextField(20);
+        btnSearch = new JButton("Tim/Loc Lop (Ten/Khoi)");
+
+        panel.add(new JLabel("Tim kiem (Ten/Khoi):"));
+        panel.add(txtSearch);
+        panel.add(btnSearch);
+
+        return panel;
     }
 
-    private void loadLopData() {
+    private void searchLopHandler() {
+        String searchTerm = txtSearch.getText().trim();
+        loadLopData(searchTerm);
+        clearInputs();
+    }
+
+
+    private void loadLopData(String searchTerm) { // Cap nhat signature
         try {
             tableModel.setRowCount(0);
-            List<lop> lops = lopService.getAllLop(); //
+            List<lop> lops;
+            
+            if (searchTerm == null || searchTerm.isEmpty()) {
+                lops = lopService.getAllLop(); 
+            } else {
+                lops = lopService.searchLop(searchTerm); // Goi LopService.searchLop
+            }
+            
             for (lop l : lops) {
-                Object[] row = {l.getMaLop(), l.getTenLop(), l.getKhoi()}; //
+                Object[] row = {l.getMaLop(), l.getTenLop(), l.getKhoi()}; 
                 tableModel.addRow(row);
             }
         } catch (Exception ex) {
@@ -140,10 +178,8 @@ public class LopPanel extends JPanel {
 
         if (lopService.addLop(tenLop, khoi)) { // Goi service them lop
             JOptionPane.showMessageDialog(this, "Them lop thanh cong!", "Thong Bao", JOptionPane.INFORMATION_MESSAGE);
-            txtMaLop.setText("");
-            txtTenLop.setText("");
-            txtKhoi.setText("");
-            loadLopData();
+            clearInputs();
+            loadLopData(null); // Cap nhat: Load All
         } else {
             JOptionPane.showMessageDialog(this, "Them lop that bai! Kiem tra log hoac du lieu dau vao.", "Loi Xu Ly", JOptionPane.ERROR_MESSAGE);
         }
@@ -166,7 +202,7 @@ public class LopPanel extends JPanel {
             
             if (lopService.updateLop(maLop, tenLop, khoi)) { // Goi service sua lop
                 JOptionPane.showMessageDialog(this, "Sua lop thanh cong!", "Thong Bao", JOptionPane.INFORMATION_MESSAGE);
-                loadLopData();
+                loadLopData(null); // Cap nhat: Load All
                 clearInputs();
             } else {
                 JOptionPane.showMessageDialog(this, "Sua lop that bai! Kiem tra Ma Lop hoac du lieu.", "Loi Xu Ly", JOptionPane.ERROR_MESSAGE);
@@ -194,7 +230,7 @@ public class LopPanel extends JPanel {
             if (confirm == JOptionPane.YES_OPTION) {
                 if (lopService.deleteLop(maLop)) { // Goi service xoa lop
                     JOptionPane.showMessageDialog(this, "Xoa lop thanh cong!", "Thong Bao", JOptionPane.INFORMATION_MESSAGE);
-                    loadLopData();
+                    loadLopData(null); // Cap nhat: Load All
                     clearInputs();
                 } else {
                     JOptionPane.showMessageDialog(this, "Xoa that bai! Kiem tra rang buoc khoa ngoai (co HS trong lop nay).", "Loi Xu Ly", JOptionPane.ERROR_MESSAGE);
