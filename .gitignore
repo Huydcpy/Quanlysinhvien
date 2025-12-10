@@ -1,0 +1,13 @@
+# Bo qua cac file va thu muc mac dinh cua Java
+*.class             # Loai bo tat ca cac file da bien dich (.class)
+*.jar               # Loai bo cac file .jar tuong tu nhu file da bien dich
+/bin/
+/out/
+/target/
+.idea/              # File cau hinh cua IntelliJ IDEA
+.vscode/            # File cau hinh cua VS Code
+.classpath
+.project
+
+# Quy tac loai tru file cau hinh database rieng
+/src/util/DBConnectionLocal.java
