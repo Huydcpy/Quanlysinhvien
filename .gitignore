@@ -11,3 +11,5 @@
 
 # Quy tac loai tru file cau hinh database rieng
 /src/util/DBConnectionLocal.java
+/src/util/DBConnection.java
+/src/util/JDBCUtil.java
