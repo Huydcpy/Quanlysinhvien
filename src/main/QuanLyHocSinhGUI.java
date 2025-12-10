@@ -1,4 +1,3 @@
-// Trong file src/main/QuanLyHocSinhGUI.java
 package main;
 
 import java.awt.BorderLayout;
@@ -30,13 +29,13 @@ public class QuanLyHocSinhGUI extends JFrame {
         JMenuItem miLop = new JMenuItem("1. Quan ly Lop"); 
         JMenuItem miHocSinh = new JMenuItem("2. Quan ly Hoc Sinh"); 
         JMenuItem miDiem = new JMenuItem("3. Quan ly Diem"); 
-        JMenuItem miThongKe = new JMenuItem("4. Thong ke Hoc Luc"); // THEM MENU MOI
+        JMenuItem miThongKe = new JMenuItem("4. Thong ke Hoc Luc"); 
         JMenuItem miThoat = new JMenuItem("0. Thoat"); 
 
         menuQuanLy.add(miLop);
         menuQuanLy.add(miHocSinh);
         menuQuanLy.add(miDiem);
-        menuQuanLy.add(miThongKe); // Them vao menu
+        menuQuanLy.add(miThongKe); 
         menuQuanLy.addSeparator();
         menuQuanLy.add(miThoat);
 
@@ -52,7 +51,7 @@ public class QuanLyHocSinhGUI extends JFrame {
         miLop.addActionListener(this::handleLopAction);
         miHocSinh.addActionListener(this::handleHocSinhAction); 
         miDiem.addActionListener(this::handleDiemAction); 
-        miThongKe.addActionListener(this::handleThongKeAction); // LIEN KET THONG KE
+        miThongKe.addActionListener(this::handleThongKeAction); 
         miThoat.addActionListener(e -> System.exit(0));
 
         setVisible(true);
@@ -85,6 +84,21 @@ public class QuanLyHocSinhGUI extends JFrame {
     }
 
     public static void main(String[] args) {
+        
+        // ** START: CODE THEM LOOK AND FEEL (L&F) **
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (Exception ex) {
+            // Neu Nimbus khong co hoac xay ra loi, dung L&F mac dinh
+            System.err.println("Loi khi thiet lap Nimbus L&F: " + ex.getMessage());
+        }
+        // ** END: CODE THEM LOOK AND FEEL (L&F) **
+        
         // Chay GUI tren Event Dispatch Thread
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {

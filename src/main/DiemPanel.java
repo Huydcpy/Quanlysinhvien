@@ -113,10 +113,10 @@ public class DiemPanel extends JPanel {
         
         // 3.2. Panel Chuc nang
         JPanel controlPanel = new JPanel(new GridLayout(4, 1, 5, 5));
-        controlPanel.add(new JButton("Them Diem"));
+        controlPanel.add(new JButton("+ Them Diem")); 
         controlPanel.add(new JButton("Xem Diem"));
-        controlPanel.add(new JButton("Sua Diem"));
-        controlPanel.add(new JButton("Xoa Diem"));
+        controlPanel.add(new JButton("\u270e Sua Diem")); 
+        controlPanel.add(new JButton("\u274c Xoa Diem"));
 
         mainPanel.add(controlPanel);
         
@@ -149,8 +149,6 @@ public class DiemPanel extends JPanel {
             // Tinh va hien thi diem trung binh va hoc luc
             float diemTB = diemHSService.tinhDiemTB(d); // Goi service
             lblDiemTBResult.setText(String.format("%.2f", diemTB));
-            
-            // SU DUNG LOGIC MOI TU SERVICE
             lblHocLucResult.setText(diemHSService.getHocLuc(diemTB)); 
 
         } catch (NumberFormatException ex) {
@@ -256,5 +254,4 @@ public class DiemPanel extends JPanel {
         txtTheDuc.setText("");
         txtKhoaHoc.setText("");
     }
-    
 }

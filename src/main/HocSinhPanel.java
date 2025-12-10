@@ -19,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
 
 import model.HocSinh;
 import service.HocSinhService;
-import util.ReportUtil; // NEW IMPORT
+import util.ReportUtil;
 
 public class HocSinhPanel extends JPanel {
 
@@ -47,7 +47,7 @@ public class HocSinhPanel extends JPanel {
     private JButton btnDelete;
     private JButton btnView;
     private JButton btnSearch;
-    private JButton btnExport; // NEW FIELD
+    private JButton btnExport;
 
     public HocSinhPanel() {
         setLayout(new BorderLayout(10, 10));
@@ -63,7 +63,7 @@ public class HocSinhPanel extends JPanel {
         JPanel searchPanel = createSearchPanel();
         topPanel.add(searchPanel, BorderLayout.SOUTH);
         
-        add(topPanel, BorderLayout.NORTH); // CAP NHAT LAYOUT
+        add(topPanel, BorderLayout.NORTH); 
 
         // 2. Panel Nhap lieu (Form Panel)
         JPanel inputPanel = createInputPanel();
@@ -79,9 +79,9 @@ public class HocSinhPanel extends JPanel {
         studentTable = new JTable(tableModel);
         
         JScrollPane scrollPane = new JScrollPane(studentTable);
-        add(scrollPane, BorderLayout.CENTER);
+        add(scrollPane, BorderLayout.CENTER); 
         
-        // 5. Thêm Event Listeners
+        // 5. Them Event Listeners
         btnAdd.addActionListener(e -> addHocSinhHandler());
         btnUpdate.addActionListener(e -> updateHocSinhHandler());
         btnDelete.addActionListener(e -> deleteHocSinhHandler());
@@ -90,7 +90,7 @@ public class HocSinhPanel extends JPanel {
         btnView.setText("Xem Tat Ca Hoc Sinh");
         btnView.addActionListener(e -> loadHocSinhData(null)); 
         btnSearch.addActionListener(e -> searchHocSinhHandler()); 
-        btnExport.addActionListener(e -> exportHocSinhHandler()); // NEW LISTENER
+        btnExport.addActionListener(e -> exportHocSinhHandler()); 
 
         // Them Listener de dien du lieu len form khi chon dong tren bang
         studentTable.getSelectionModel().addListSelectionListener(e -> {
@@ -130,13 +130,13 @@ public class HocSinhPanel extends JPanel {
         clearHocSinhInputs();
     }
     
-    private void exportHocSinhHandler() { // NEW HANDLER
+    private void exportHocSinhHandler() {
         ReportUtil.exportTableToCSV(studentTable, "DanhSachHocSinh.csv");
     }
     
     private JPanel createInputPanel() {
         JPanel panel = new JPanel(new GridLayout(9, 2, 5, 5)); // 8 truong + 1 row MaHS
-        panel.setBorder(new EmptyBorder(10, 10, 10, 10)); 
+        panel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
         txtMaHS = new JTextField(5);
         txtHoTen = new JTextField(15);
@@ -155,7 +155,7 @@ public class HocSinhPanel extends JPanel {
         panel.add(txtHoTen);
         panel.add(new JLabel("Gioi Tinh:"));
         panel.add(txtGioiTinh);
-        panel.add(new JLabel("Ngay Sinh (dd-MM-yyyy):")); // Dinh dang moi
+        panel.add(new JLabel("Ngay Sinh (dd-MM-yyyy):")); 
         panel.add(txtNgaySinh);
         panel.add(new JLabel("Ma Lop:"));
         panel.add(txtMaLop);
@@ -170,18 +170,19 @@ public class HocSinhPanel extends JPanel {
     }
     
     private JPanel createControlPanel() {
-        JPanel controlPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        btnAdd = new JButton("Them Hoc Sinh"); 
-        btnUpdate = new JButton("Sua Hoc Sinh"); 
-        btnDelete = new JButton("Xoa Hoc Sinh"); 
+        JPanel controlPanel = new JPanel(new FlowLayout(FlowLayout.CENTER)); 
+        
+        btnAdd = new JButton("+ Them Hoc Sinh"); 
+        btnUpdate = new JButton("\u270e Sua Hoc Sinh"); 
+        btnDelete = new JButton("\u274c Xoa Hoc Sinh"); 
         btnView = new JButton("Xem Danh Sach Hoc Sinh"); 
-        btnExport = new JButton("Xuat File CSV"); // NEW BUTTON
+        btnExport = new JButton("Xuat File CSV");
         
         controlPanel.add(btnAdd);
         controlPanel.add(btnUpdate);
         controlPanel.add(btnDelete);
         controlPanel.add(btnView);
-        controlPanel.add(btnExport); // ADD BUTTON
+        controlPanel.add(btnExport);
         
         return controlPanel;
     }

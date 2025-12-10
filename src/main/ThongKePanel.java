@@ -70,14 +70,14 @@ public class ThongKePanel extends JPanel {
         resultTable = new JTable(tableModel);
 
         JScrollPane scrollPane = new JScrollPane(resultTable);
-        add(scrollPane, BorderLayout.CENTER);
+        add(scrollPane, BorderLayout.CENTER); // Hoan tac TitledBorder
 
         // 4. Nut tai lai & Export (UPDATED LAYOUT)
         JButton btnRefresh = new JButton("Tai lai Thong ke");
         btnRefresh.addActionListener(e -> loadThongKeData());
         
         btnExport = new JButton("Xuat File CSV");
-        btnExport.addActionListener(e -> exportThongKeHandler());
+        btnExport.addActionListener(e -> exportThongKeHandler()); 
 
         JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         bottomPanel.add(btnRefresh);
@@ -91,7 +91,7 @@ public class ThongKePanel extends JPanel {
 
     private JPanel createSummaryPanel() {
         JPanel summaryPanel = new JPanel(new GridLayout(10, 2, 5, 5));
-        summaryPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+        summaryPanel.setBorder(new EmptyBorder(10, 10, 10, 10)); // Hoan tac TitledBorder
 
         lblTongHS = new JLabel("0");
         lblTongCoDiem = new JLabel("0");
