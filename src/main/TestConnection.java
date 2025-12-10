@@ -6,10 +6,9 @@ public class TestConnection {
     public static void main(String[] args) {
         Connection connection = DBConnection.getConnection();
         if (connection != null) {
-            System.out.println("ĐÃ kết nói đến cơ sở dữ liệu thành công!");
+            System.out.println("DA ket noi den co so du lieu thanh cong!");
         } else {
-            System.out.println("KHÔNG thể kết nối đến cơ sở dữ liệu.");
+            System.out.println("KHONG the ket noi den co so du lieu.");
         }
     }
-    
 }

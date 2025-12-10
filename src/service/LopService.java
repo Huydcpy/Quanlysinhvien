@@ -4,32 +4,36 @@ import dao.lopDAO;
 import java.util.List;
 public class LopService {
     private lopDAO lopDAO = new lopDAO();
-    // Thêm lớp
+    
+    // Them lop
     public boolean addLop(String tenLop, int khoi){
         if(tenLop == null || tenLop.isEmpty() || khoi <= 0){
-            System.out.println("Thông tin lớp không hợp lệ.");
+            System.out.println("Thong tin lop khong hop le.");
             return false;
         }
         lop lop = new lop(0, tenLop, khoi);
         return lopDAO.addLop(lop);
     }
-    // Lấy danh sách lớp
+    
+    // Lay danh sach lop
     public List<lop> getAllLop(){
         return lopDAO.getAllLop();
     }
-    // Sửa lớp
+    
+    // Sua lop
     public boolean updateLop(int maLop, String tenLop, int khoi){
         if(maLop <= 0 || tenLop == null || tenLop.isEmpty() || khoi <= 0){
-            System.out.println("Thông tin lớp không hợp lệ.");
+            System.out.println("Thong tin lop khong hop le.");
             return false;
         }
         lop lop = new lop(maLop, tenLop, khoi);
         return lopDAO.updateLop(lop);
     }
-    // Xóa lớp
+    
+    // Xoa lop
     public boolean deleteLop(int maLop){
         if(maLop <= 0){
-            System.out.println("Mã lớp không hợp lệ.");
+            System.out.println("Ma lop khong hop le.");
             return false;
         }
         return lopDAO.deleteLop(maLop);

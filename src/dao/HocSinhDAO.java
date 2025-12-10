@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HocSinhDAO {
-    // Thêm học Hocsinh; (ĐÃ SỬA)
+    // Them Hocsinh; (DA SUA)
     public boolean addHocSinh(HocSinh hs){
-        // Loại bỏ maHS khỏi danh sách cột, giả sử nó là AUTO_INCREMENT
+        // Loai bo maHS khoi danh sach cot, gia su no la AUTO_INCREMENT
         String sql = "INSERT INTO hocSinh(hoTen, ngaySinh, maLop, diaChi, gioiTinh, sdtOfBoMe, email) VALUES(?, ?, ?, ?, ?, ?, ?)";
         try(Connection conn = DBConnection.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql)){
@@ -26,7 +26,8 @@ public class HocSinhDAO {
             }
             return false;
     }
-    // Lấy danh sách học sinh
+    
+    // Lay danh sach hoc sinh
     public List<HocSinh> getAllHocSinh(){
         List<HocSinh> list = new ArrayList<>();
         String sql = "SELECT * FROM hocSinh";
@@ -52,7 +53,8 @@ public class HocSinhDAO {
             }
             return list;
         }
-        // Sửa học sinh
+        
+        // Sua hoc sinh
         public boolean updateHocSinh(HocSinh hs){
             String sql = "UPDATE hocSinh SET hoTen = ?, ngaySinh = ?, maLop = ?, diaChi = ?, gioiTinh = ?, sdtOfBoMe = ?, email = ? WHERE maHS = ?";
             try(Connection conn = DBConnection.getConnection();
@@ -73,7 +75,8 @@ public class HocSinhDAO {
             }
             return false;
         }
-        // Xóa học sinh
+        
+        // Xoa hoc sinh
         public boolean deleteHocSinh(int maHS){
             String sql = "DELETE FROM hocSinh WHERE maHS = ?";
             try(Connection conn = DBConnection.getConnection();

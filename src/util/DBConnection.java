@@ -7,19 +7,19 @@ import java.sql.SQLException;
 public class DBConnection {
     private static final String URL = "jdbc:mysql://localhost:3306/quanlyhocsinh";
     private static final String USER = "root";
-    private static final String PASSWORD = "Huyngu2006@"; // thay bằng mật khẩu thật
+    private static final String PASSWORD = "Huyngu2006@"; // thay bang mat khau that
 
     public static Connection getConnection() {
         Connection conn = null;
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver"); // nạp driver
+            Class.forName("com.mysql.cj.jdbc.Driver"); // nap driver
             conn = DriverManager.getConnection(URL, USER, PASSWORD);
-            System.out.println("✅ Kết nối MySQL thành công!");
+            System.out.println("[THANH CONG] Ket noi MySQL thanh cong!");
         } catch (ClassNotFoundException e) {
-            System.out.println("❌ Không tìm thấy JDBC Driver!");
+            System.out.println("[LOI] Khong tim thay JDBC Driver!");
             e.printStackTrace();
         } catch (SQLException e) {
-            System.out.println("❌ Lỗi kết nối MySQL!");
+            System.out.println("[LOI] Loi ket noi MySQL!");
             e.printStackTrace();
         }
         return conn;

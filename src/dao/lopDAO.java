@@ -3,8 +3,11 @@ import model.lop;
 import util.DBConnection;
 import java.sql.*;
 import java.util.List;
+import java.util.ArrayList; // Them import cho ArrayList
+
 public class lopDAO {
-    // Thêm lớp 
+    
+    // Them lop 
     public boolean addLop(lop lop){
         String sql = "INSERT INTO lop(tenLop, khoi) values(?, ?)";
         try (Connection conn = DBConnection.getConnection();
@@ -19,9 +22,11 @@ public class lopDAO {
                 }
                 return false;
     }
-    // Lấy danh sách lớp
+    
+    // Lay danh sach lop
     public List<lop> getAllLop(){
-        List<lop> list = new java.util.ArrayList<>();
+        // Thay the "new java.util.ArrayList<>()" thanh "new ArrayList<>()" 
+        List<lop> list = new ArrayList<>(); 
         String sql = "SELECT * FROM lop";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)){
@@ -42,7 +47,8 @@ public class lopDAO {
     return list;
 
     }
-    // Sửa lớp
+    
+    // Sua lop
     public boolean updateLop(lop lop){
         String sql = "UPDATE lop SET tenLop = ?, khoi = ? WHERE maLop = ?";
         try (Connection conn = DBConnection.getConnection();
@@ -58,7 +64,8 @@ public class lopDAO {
         }
         return false;
     }
-    // Xóa lớp
+    
+    // Xoa lop
     public boolean deleteLop(int maLop){
         String sql = "DELETE FROM lop WHERE maLop = ?";
         try (Connection conn = DBConnection.getConnection();

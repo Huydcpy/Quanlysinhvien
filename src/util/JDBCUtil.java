@@ -6,12 +6,12 @@ import java.sql.SQLException;
 
 public class JDBCUtil {
     public static Connection getConnection() throws SQLException {
-        // Thông tin kết nối
+        // Thong tin ket noi
         String url = "jdbc:mysql://localhost:3306/quanlyhocsinh";
-        String user = "root"; // tài khoản MySQL
-        String password = "Huyngu2006@"; // đổi thành mật khẩu thật
+        String user = "root"; // tai khoan MySQL
+        String password = "Huyngu2006@"; // doi thanh mat khau that
 
-        // Tạo kết nối
+        // Tao ket noi
         return DriverManager.getConnection(url, user, password);
     }
 }
