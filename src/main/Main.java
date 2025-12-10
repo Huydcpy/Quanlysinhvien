@@ -217,34 +217,19 @@ public class Main {
                     DiemHs d = diemHSService.getDiemByMaHS(ma);
                     if (d == null) System.out.println("Khong co du lieu!");
                     else {
+                        float diemTB = diemHSService.tinhDiemTB(d); 
                         System.out.println("Diem Toan: " + d.getDiemToan());
                         System.out.println("Diem Van: " + d.getDiemNguVan());
-                        System.out.println("Diem Ngoai Ngu: "+d.getDiemNgoaiNgu()); // Fix from previous step (DiemGDCD was here)
-                        System.out.println("Diem GDCD: " + d.getDiemGDCD()); // Fix from previous step (DiemLichSu was here)
-                        System.out.println("Diem Lich Su: " + d.getDiemLichSu()); // Fix from previous step (no output for LichSu)
+                        System.out.println("Diem Ngoai Ngu: "+d.getDiemNgoaiNgu()); 
+                        System.out.println("Diem GDCD: " + d.getDiemGDCD()); 
+                        System.out.println("Diem Lich Su: " + d.getDiemLichSu()); 
                         System.out.println("Diem Tin Hoc: " + d.getDiemTinHoc());
                         System.out.println("Diem The Duc: " +d.getDiemTheDuc());
                         System.out.println("Diem Khoa Hoc: "+d.getDiemKhoaHoc());
-                        System.out.println("Diem TB: " + diemHSService.tinhDiemTB(d));
-                        if(diemHSService.tinhDiemTB(d) < 3){
-                            System.out.println("Hoc Lai");
-                        }
-                        else if(diemHSService.tinhDiemTB(d) < 5){
-                            System.out.println("Hoc Luc : Yeu");
-                        }
-                        else if(diemHSService.tinhDiemTB(d)< 8){
-                            System.out.println("Hoc luc: Trung binh");
-
-                        }
-                        else if(diemHSService.tinhDiemTB(d)< 9){
-                            System.out.println("Hoc luc: Kha");
-                        }
-                        else if(diemHSService.tinhDiemTB(d) < 10){
-                            System.out.println("Hoc luc: Gioi");
-                        }
-                        else if(diemHSService.tinhDiemTB(d) == 10){
-                            System.out.println("Hoc luc: Xuat sac");
-                        }
+                        
+                        System.out.println("Diem TB: " + diemTB);
+                        
+                        System.out.println("Hoc luc: " + diemHSService.getHocLuc(diemTB)); 
                     }
                     break;
 

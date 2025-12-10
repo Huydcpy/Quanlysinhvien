@@ -149,7 +149,9 @@ public class DiemPanel extends JPanel {
             // Tinh va hien thi diem trung binh va hoc luc
             float diemTB = diemHSService.tinhDiemTB(d); // Goi service
             lblDiemTBResult.setText(String.format("%.2f", diemTB));
-            lblHocLucResult.setText(getHocLuc(diemTB));
+            
+            // SU DUNG LOGIC MOI TU SERVICE
+            lblHocLucResult.setText(diemHSService.getHocLuc(diemTB)); 
 
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Ma HS phai la so nguyen.", "Loi Nhap Lieu", JOptionPane.WARNING_MESSAGE);
@@ -255,25 +257,4 @@ public class DiemPanel extends JPanel {
         txtKhoaHoc.setText("");
     }
     
-    private String getHocLuc(float diemTB) {
-        if(diemTB < 3){ //
-            return "Hoc Lai";
-        }
-        else if(diemTB < 5){ //
-            return "Yeu";
-        }
-        else if(diemTB < 8){ //
-            return "Trung binh";
-        }
-        else if(diemTB < 9){ //
-            return "Kha";
-        }
-        else if(diemTB < 10){ //
-            return "Gioi";
-        }
-        else if(diemTB == 10){ //
-            return "Xuat sac";
-        }
-        return "Khong xac dinh";
-    }
 }
