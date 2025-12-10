@@ -2,6 +2,7 @@ package main;
 import service.LopService;
 import service.HocSinhService;
 import service.DiemHSService;
+import util.DBConnection;
 
 import model.HocSinh;
 import model.DiemHs;
@@ -21,6 +22,8 @@ public class Main {
 
     public static void main(String[] args) {
 
+        // Create table
+        DBConnection.initializeDatabase();
         // Launch the new GUI
         QuanLyHocSinhGUI.main(args); // Thay the Console Menu bang GUI
     }

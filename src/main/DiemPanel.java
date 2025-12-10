@@ -2,8 +2,6 @@ package main;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
-import java.util.HashMap;
-import java.util.Map;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
